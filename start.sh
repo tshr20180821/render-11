@@ -8,7 +8,7 @@ apt-get -qq update
 DEBIAN_FRONTEND=noninteractive apt-get -y install \
   apache2 \
   curl \
-  dnsutils \
+  iproute2 \
   >/dev/null
 
 a2dissite -q 000-default.conf
