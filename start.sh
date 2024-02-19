@@ -29,6 +29,7 @@ a2enmod \
  proxy \
  proxy_http
 
+cat /etc/apache2/apache2.conf
 mv /etc/apache2/apache2.conf /etc/apache2/apache2.conf.org
 touch /etc/apache2/apache2.conf
 
