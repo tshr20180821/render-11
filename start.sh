@@ -44,4 +44,4 @@ chmod +x ./start_after.sh
 
 sleep 5s && ./start_after.sh &
 
-exec /usr/sbin/apache2 -DFOREGROUND
+exec /usr/sbin/apache2 -DFOREGROUND -C /etc/apache2/sites-enabled/apache.conf
