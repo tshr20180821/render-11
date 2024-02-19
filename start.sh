@@ -29,17 +29,16 @@ a2enmod \
  proxy \
  proxy_http
 
-curl -sSL -o /etc/apache2/sites-enabled/apache.conf https://github.com/tshr20180821/render-11/raw/main/apache.conf
-sed -i s/__RENDER_EXTERNAL_HOSTNAME__/"${RENDER_EXTERNAL_HOSTNAME}"/g /etc/apache2/sites-enabled/apache.conf
+mv /etc/apache2/apache2.conf /etc/apache2/apache2.conf.org
 
-cat /etc/apache2/sites-enabled/apache.conf
+curl -sSL -o /etc/apache2/apache2.conf https://github.com/tshr20180821/render-11/raw/main/apache.conf
+sed -i s/__RENDER_EXTERNAL_HOSTNAME__/"${RENDER_EXTERNAL_HOSTNAME}"/g /etc/apache2/apache2.conf
 
 htpasswd -c -b /var/www/html/.htpasswd "${BASIC_USER}" "${BASIC_PASSWORD}"
 chmod 644 /var/www/html/.htpasswd
 . /etc/apache2/envvars >/dev/null 2>&1
 
 ls -lang /etc/apache2/
-mv /etc/apache2/apache2.conf /etc/apache2/apache2.conf.org
 
 curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/start_after.sh
 
