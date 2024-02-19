@@ -23,6 +23,6 @@ FAHClient --help >/var/www/html/auth/fahclient.txt
 
 while true; do \
   FAHClient -v --user=Anonymous --team=0 --gpu=false --cpus=-1 --chdir=/tmp --log-to-screen=true \
-    --http-addresses=127.0.0.1:7396 --command-address=127.0.0.1 --max-packet-size=small --core-priority=low --verbosity=5; \
+   --http-addresses=127.0.0.1:7396 --command-address=127.0.0.1 --max-packet-size=small --core-priority=low --verbosity=5; \
 done
 
