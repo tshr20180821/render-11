@@ -5,7 +5,7 @@ set -x
 export PS4='+(${BASH_SOURCE}:${LINENO}): '
 
 apt-get -qq update
-DEBIAN_FRONTEND=noninteractive apt-get -y install \
+DEBIAN_FRONTEND=noninteractive apt-get -y --no-install-recommends install \
   apache2 \
   curl \
   iproute2 \
