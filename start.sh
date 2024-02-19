@@ -50,9 +50,8 @@ ls -lang /etc/apache2/conf-enabled
 
 # sleep 5s && ./start_after.sh &
 
-echo ${APACHE_RUN_DIR}
-ls -lang /var/run/
-
 printenv | sort
+
+mkdir ${APACHE_RUN_DIR}
 
 exec /usr/sbin/apache2 -DFOREGROUND
