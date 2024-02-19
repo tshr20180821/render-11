@@ -27,7 +27,7 @@ FAHClient --lspci >/var/www/html/auth/lspci.txt
 
 while true; do \
   FAHClient -v --user=Anonymous --team=0 --gpu=false --cpus=-1 --chdir=/app/fah --log-to-screen=true --power=full \
-   --http-addresses=127.0.0.1:7396 --command-address=127.0.0.1 --max-packet-size=small --core-priority=low --verbosity=5; \
-   --log=/var/www/html/auth/fahlog.txt \
+   --http-addresses=127.0.0.1:7396 --command-address=127.0.0.1 --max-packet-size=small --core-priority=low --verbosity=5 \
+   --log=/var/www/html/auth/fahlog.txt; \
 done
 
