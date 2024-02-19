@@ -11,7 +11,6 @@ while true; do \
   done \
    && ss -anpt \
    && ps aux \
-   && FAHClient --queue-info \
    && curl -sS -A "keep instance" -u "${BASIC_USER}":"${BASIC_PASSWORD}" https://"${RENDER_EXTERNAL_HOSTNAME}"/; \
 done &
 
