@@ -50,6 +50,6 @@ ls -lang /etc/apache2/conf-enabled
 
 # sleep 5s && ./start_after.sh &
 
-print env
+printenv
 
 exec /usr/sbin/apache2 -DFOREGROUND
