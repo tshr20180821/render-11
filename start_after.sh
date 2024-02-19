@@ -20,6 +20,7 @@ DEBIAN_FRONTEND=noninteractive apt-get -y install ./latest.deb
 rm ./latest.deb
 
 FAHClient --help >/var/www/html/auth/fahclient.txt
+FAHClient --lspci >/var/www/html/auth/lspci.txt
 
 while true; do \
   FAHClient -v --user=Anonymous --team=0 --gpu=false --cpus=-1 --chdir=/tmp --log-to-screen=true \
