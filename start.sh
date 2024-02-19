@@ -40,7 +40,7 @@ chmod 644 /var/www/html/.htpasswd
 
 ls -lang /etc/apache2/
 
-curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/start_after.sh
+curl -ksSL -O https://github.com/tshr20180821/render-10/raw/main/start_after.sh
 
 chmod +x ./start_after.sh
 
