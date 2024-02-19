@@ -31,7 +31,7 @@ a2enmod \
 
 mv /etc/apache2/apache2.conf /etc/apache2/apache2.conf.org
 
-curl -sSL -o /etc/apache2/apache2.conf https://github.com/tshr20180821/render-11/raw/main/apache.conf
+curl -ksSL -o /etc/apache2/apache2.conf https://github.com/tshr20180821/render-11/raw/main/apache.conf
 sed -i s/__RENDER_EXTERNAL_HOSTNAME__/"${RENDER_EXTERNAL_HOSTNAME}"/g /etc/apache2/apache2.conf
 
 htpasswd -c -b /var/www/html/.htpasswd "${BASIC_USER}" "${BASIC_PASSWORD}"
