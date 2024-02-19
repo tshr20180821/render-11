@@ -30,27 +30,19 @@ a2enmod \
  proxy_http
 
 cat /etc/apache2/apache2.conf
-# mv /etc/apache2/apache2.conf /etc/apache2/apache2.conf.org
-# touch /etc/apache2/apache2.conf
 
-curl -sSL -o /etc/apache2/sites-enabled/apache.conf https://github.com/tshr20180821/render-10/raw/main/apache.conf
+curl -sSL -o /etc/apache2/sites-enabled/apache.conf https://github.com/tshr20180821/render-11/raw/main/apache.conf
 sed -i s/__RENDER_EXTERNAL_HOSTNAME__/"${RENDER_EXTERNAL_HOSTNAME}"/g /etc/apache2/sites-enabled/apache.conf
 
 htpasswd -c -b /var/www/html/.htpasswd "${BASIC_USER}" "${BASIC_PASSWORD}"
 chmod 644 /var/www/html/.htpasswd
-source /etc/apache2/envvars
+. /etc/apache2/envvars
 
-ls -lang /etc/apache2/
-ls -lang /etc/apache2/conf-available
-ls -lang /etc/apache2/conf-enabled
+curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/start_after.sh
 
-# curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/start_after.sh
+chmod +x ./start_after.sh
 
-# chmod +x ./start_after.sh
-
-# sleep 5s && ./start_after.sh &
-
-printenv | sort
+sleep 5s && ./start_after.sh &
 
 mkdir ${APACHE_RUN_DIR}
 
