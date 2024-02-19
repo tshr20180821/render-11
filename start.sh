@@ -38,7 +38,7 @@ sed -i s/__RENDER_EXTERNAL_HOSTNAME__/"${RENDER_EXTERNAL_HOSTNAME}"/g /etc/apach
 
 htpasswd -c -b /var/www/html/.htpasswd "${BASIC_USER}" "${BASIC_PASSWORD}"
 chmod 644 /var/www/html/.htpasswd
-. /etc/apache2/envvars >/dev/null
+. /etc/apache2/envvars
 
 ls -lang /etc/apache2/
 ls -lang /etc/apache2/conf-available
