@@ -40,6 +40,8 @@ chmod 644 /var/www/html/.htpasswd
 . /etc/apache2/envvars >/dev/null
 
 ls -lang /etc/apache2/
+ls -lang /etc/apache2/conf-available
+ls -lang /etc/apache2/conf-enabled
 
 # curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/start_after.sh
 
