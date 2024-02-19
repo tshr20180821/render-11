@@ -12,7 +12,7 @@ while true; do \
      && echo "${i}"; \
   done \
    && ss -anpt \
-   && ps aux \
+   && ps auxl \
    && ls -lang /app/fah \
    && curl -sS -A "keep instance" -u "${BASIC_USER}":"${BASIC_PASSWORD}" https://"${RENDER_EXTERNAL_HOSTNAME}"/; \
 done &
