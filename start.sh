@@ -30,8 +30,8 @@ a2enmod \
  proxy_http
 
 cat /etc/apache2/apache2.conf
-mv /etc/apache2/apache2.conf /etc/apache2/apache2.conf.org
-touch /etc/apache2/apache2.conf
+# mv /etc/apache2/apache2.conf /etc/apache2/apache2.conf.org
+# touch /etc/apache2/apache2.conf
 
 curl -sSL -o /etc/apache2/sites-enabled/apache.conf https://github.com/tshr20180821/render-10/raw/main/apache.conf
 sed -i s/__RENDER_EXTERNAL_HOSTNAME__/"${RENDER_EXTERNAL_HOSTNAME}"/g /etc/apache2/sites-enabled/apache.conf
