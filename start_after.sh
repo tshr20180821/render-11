@@ -30,8 +30,7 @@ ls -lang /app/fah/
 while true; do \
   for i in {1..10}; do \
     sleep 60s \
-     && echo "${i}" \
-     && curl -sS -A "keep instance" -u "${BASIC_USER}":"${BASIC_PASSWORD}" https://"${RENDER_EXTERNAL_HOSTNAME}"/; \
+     && curl -sS -A "${i}" -u "${BASIC_USER}":"${BASIC_PASSWORD}" https://"${RENDER_EXTERNAL_HOSTNAME}"/; \
   done \
    && ss -anpt \
    && ps aux \
