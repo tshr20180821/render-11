@@ -39,13 +39,13 @@ while true; do \
    && ps aux \
    && du -hd 1 /app/fah \
    && rm -f /tmp/fah.tar.gz \
-   && nice -n -10 tar -I "pbzip2 -p$(nproc)" -cf /tmp/fah.tar.gz ./fah \
+   && tar -I "pbzip2 -p$(nproc)" -cf /tmp/fah.tar.gz ./fah \
    && megatools rm --no-ask-password /Root/${RENDER_EXTERNAL_HOSTNAME}/fah.tar.gz | true \
    && megatools put --no-ask-password --path /Root/${RENDER_EXTERNAL_HOSTNAME}/fah.tar.gz /tmp/fah.tar.gz; \
 done &
 
 while true; do \
-  FAHClient --gpu=false --chdir=/app/fah --power=full --http-addresses=127.0.0.1:7396 --command-address=127.0.0.1 \
+  nice -n 10 FAHClient --gpu=false --chdir=/app/fah --power=full --http-addresses=127.0.0.1:7396 --command-address=127.0.0.1 \
    --max-packet-size=small --exit-when-done=true --checkpoint=3 --log-header=false --log-rotate-max=2 --log-time=false \
     && rm -f /app/fah/logs/* \
     && megatools rm --no-ask-password /Root/${RENDER_EXTERNAL_HOSTNAME}/fah.tar.gz; \
