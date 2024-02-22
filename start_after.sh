@@ -23,6 +23,7 @@ FAHClient --help >/var/www/html/auth/fahclient.txt
 
 megatools get /Root/fah.tar.gz
 tar xf ./fah.tar.gz
+rm -f ./fah.tar.gz
 
 ls -lang
 ls -lang /app/fah/
@@ -34,16 +35,15 @@ while true; do \
   done \
    && ss -anpt \
    && ps aux \
-   && ls -lang /app/fah \
    && rm -f /tmp/fah.tar.gz \
    && tar -zcf /tmp/fah.tar.gz ./fah \
    && megatools rm --no-ask-password /Root/fah.tar.gz | true \
-   && megatools put --path /Root/fah.tar.gz /tmp/fah.tar.gz | true \
-   && rm -f /app/fah/logs/*; \
+   && megatools put --no-ask-password --path /Root/fah.tar.gz /tmp/fah.tar.gz;\
 done &
 
 while true; do \
   FAHClient -v --gpu=false --chdir=/app/fah --power=full --http-addresses=127.0.0.1:7396 --command-address=127.0.0.1 \
    --max-packet-size=small --core-priority=low --verbosity=5 --log=/dev/null --exit-when-done=true \
+    && rm -f /app/fah/logs/* \
     && megatools rm --no-ask-password /Root/fah.tar.gz; \
 done
