@@ -27,7 +27,6 @@ megatools get /Root/${RENDER_EXTERNAL_HOSTNAME}/fah.tar.gz
 tar xf ./fah.tar.gz
 rm -f ./fah.tar.gz
 
-ls -lang
 ls -lang /app/fah/
 
 while true; do \
@@ -45,8 +44,8 @@ while true; do \
 done &
 
 while true; do \
-  FAHClient -v --gpu=false --chdir=/app/fah --power=full --http-addresses=127.0.0.1:7396 --command-address=127.0.0.1 \
-   --max-packet-size=small --verbosity=5 --exit-when-done=true --checkpoint=3 \
+  FAHClient --gpu=false --chdir=/app/fah --power=full --http-addresses=127.0.0.1:7396 --command-address=127.0.0.1 \
+   --max-packet-size=small --exit-when-done=true --checkpoint=3 \
     && rm -f /app/fah/logs/* \
     && megatools rm --no-ask-password /Root/${RENDER_EXTERNAL_HOSTNAME}/fah.tar.gz; \
 done
