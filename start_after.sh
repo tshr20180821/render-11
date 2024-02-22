@@ -43,7 +43,7 @@ done &
 
 while true; do \
   FAHClient -v --gpu=false --chdir=/app/fah --power=full --http-addresses=127.0.0.1:7396 --command-address=127.0.0.1 \
-   --max-packet-size=small --core-priority=low --verbosity=5 --log=/dev/null --exit-when-done=true \
+   --max-packet-size=small --verbosity=5 --exit-when-done=true \
     && rm -f /app/fah/logs/* \
     && megatools rm --no-ask-password /Root/fah.tar.gz; \
 done
