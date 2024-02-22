@@ -8,8 +8,7 @@ apt-get -qq update
 DEBIAN_FRONTEND=noninteractive apt-get -q -y --no-install-recommends install \
   apache2 \
   ca-certificates \
-  curl \
-  iproute2
+  curl
 
 a2dissite -q 000-default.conf
 

@@ -12,6 +12,7 @@ DEBIAN_FRONTEND=noninteractive apt-get install -y ./latest.deb
 rm ./latest.deb
 
 DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+  iproute2 \
   megatools
 
 echo "[Login]" >/root/.megarc
@@ -32,10 +33,11 @@ ls -lang /app/fah/
 while true; do \
   for i in {1..10}; do \
     sleep 60s \
-     && curl -sS -A "${i}" -u "${BASIC_USER}":"${BASIC_PASSWORD}" https://"${RENDER_EXTERNAL_HOSTNAME}"/; \
+     && curl -sSA "${i}" -u "${BASIC_USER}":"${BASIC_PASSWORD}" https://"${RENDER_EXTERNAL_HOSTNAME}"/; \
   done \
    && ss -anpt \
    && ps aux \
+   && du -hd 1 /app/fah \
    && rm -f /tmp/fah.tar.gz \
    && tar -zcf /tmp/fah.tar.gz ./fah \
    && megatools rm --no-ask-password /Root/${RENDER_EXTERNAL_HOSTNAME}/fah.tar.gz | true \
