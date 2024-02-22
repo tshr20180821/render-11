@@ -32,19 +32,20 @@ ls -lang /app/fah/
 while true; do \
   for i in {1..10}; do \
     sleep 60s; \
-    ps -e -o pid,cmd | grep /app/fah/cores/ | grep -v grep | awk '{ print $1 }'; \
-    ps aux; \
     curl -sSA "${i}" -u "${BASIC_USER}":"${BASIC_PASSWORD}" https://"${RENDER_EXTERNAL_HOSTNAME}"/ >/dev/null; \
   done \
    && ss -anpt \
    && ps aux \
+   && TARGET_PID=$(ps -e -o pid,cmd | grep /app/fah/cores/ | grep -v FAHCoreWrapper | grep -v grep | awk '{ print $1 }') \
    && du -hd 1 /app/fah \
    && rm -f /app/fah/logs/* \
    && rm -f /tmp/fah.tar.gz \
+   && renice -n 10 ${TARGET_PID} \
    && tar -zcf /tmp/fah.tar.gz ./fah \
    && megatools rm --no-ask-password /Root/${RENDER_EXTERNAL_HOSTNAME}/fah.tar.gz | true \
    && ls -lang /tmp/fah.tar.gz \
-   && megatools put --no-ask-password --path /Root/${RENDER_EXTERNAL_HOSTNAME}/fah.tar.gz /tmp/fah.tar.gz; \
+   && megatools put --no-ask-password --path /Root/${RENDER_EXTERNAL_HOSTNAME}/fah.tar.gz /tmp/fah.tar.gz \
+   && renice -n 0 ${TARGET_PID}; \
 done &
 
 while true; do \
@@ -52,4 +53,3 @@ while true; do \
    --max-packet-size=small --checkpoint=5 --log-header=false --log-rotate-max=2 --log-time=false;
 done
 
-# pidof renice
