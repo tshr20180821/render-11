@@ -38,7 +38,8 @@ while true; do \
    && rm -f /tmp/fah.tar.gz \
    && tar -zcf /tmp/fah.tar.gz ./fah \
    && megatools rm --no-ask-password /Root/fah.tar.gz | true \
-   && megatools put --path /Root/fah.tar.gz /tmp/fah.tar.gz \
+   && megatools put --path /Root/fah.tar.gz /tmp/fah.tar.gz | true \
+   && rm -f /app/fah/logs/*; \
 done &
 
 while true; do \
