@@ -30,9 +30,10 @@ rm -f ./fah.tar.gz
 ls -lang /app/fah/
 
 while true; do \
-  for i in {1..15}; do \
-    sleep 60s \
-     && curl -sSA "${i}" -u "${BASIC_USER}":"${BASIC_PASSWORD}" https://"${RENDER_EXTERNAL_HOSTNAME}"/ >/dev/null; \
+  for i in {1..10}; do \
+    sleep 60s; \
+    ps -e -o pid,cmd | grep /app/fah/cores/ | grep -v grep | awk '{ print $1 }'; \
+    curl -sSA "${i}" -u "${BASIC_USER}":"${BASIC_PASSWORD}" https://"${RENDER_EXTERNAL_HOSTNAME}"/ >/dev/null; \
   done \
    && ss -anpt \
    && ps aux \
