@@ -13,6 +13,7 @@ rm ./latest.deb
 
 DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
   iproute2 \
+  lbzip2 \
   megatools \
   pbzip2
 
