@@ -40,9 +40,8 @@ chmod 644 /var/www/html/.htpasswd
 ln -sfT /dev/stderr ${APACHE_LOG_DIR}/error.log
 ln -sfT /dev/stdout ${APACHE_LOG_DIR}/access.log
 
-curl -sSL -O https://github.com/tshr20180821/render-11/raw/main/start_after.sh
-
-chmod +x ./start_after.sh
+# curl -sSL -O https://github.com/tshr20180821/render-11/raw/main/start_after.sh
+# chmod +x ./start_after.sh
 
 sleep 5s && ./start_after.sh &
 
