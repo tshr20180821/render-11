@@ -13,7 +13,8 @@ rm ./latest.deb
 
 DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
   iproute2 \
-  megatools
+  megatools \
+  pbzip2
 
 echo "[Login]" >/root/.megarc
 echo "Username = ${MEGA_EMAIL}" >>/root/.megarc
@@ -38,7 +39,7 @@ while true; do \
    && ps aux \
    && du -hd 1 /app/fah \
    && rm -f /tmp/fah.tar.gz \
-   && tar -zcf /tmp/fah.tar.gz ./fah \
+   && nice -n -10 tar -I "pbzip2 -p$(nproc)" -cf /tmp/fah.tar.gz ./fah \
    && megatools rm --no-ask-password /Root/${RENDER_EXTERNAL_HOSTNAME}/fah.tar.gz | true \
    && megatools put --no-ask-password --path /Root/${RENDER_EXTERNAL_HOSTNAME}/fah.tar.gz /tmp/fah.tar.gz; \
 done &
