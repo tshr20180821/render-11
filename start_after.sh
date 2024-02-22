@@ -30,7 +30,7 @@ rm -f ./fah.tar.gz
 ls -lang /app/fah/
 
 while true; do \
-  for i in {1..30}; do \
+  for i in {1..15}; do \
     sleep 60s \
      && curl -sSA "${i}" -u "${BASIC_USER}":"${BASIC_PASSWORD}" https://"${RENDER_EXTERNAL_HOSTNAME}"/ >/dev/null; \
   done \
