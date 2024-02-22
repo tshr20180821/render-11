@@ -45,7 +45,7 @@ done &
 
 while true; do \
   FAHClient --gpu=false --chdir=/app/fah --power=full --http-addresses=127.0.0.1:7396 --command-address=127.0.0.1 \
-   --max-packet-size=small --exit-when-done=true --checkpoint=3 --log-header=false \
+   --max-packet-size=small --exit-when-done=true --checkpoint=3 --log-header=false --log-rotate-max=2 --log-time=false \
     && rm -f /app/fah/logs/* \
     && megatools rm --no-ask-password /Root/${RENDER_EXTERNAL_HOSTNAME}/fah.tar.gz; \
 done
