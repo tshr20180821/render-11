@@ -4,7 +4,7 @@ EXPOSE 80
 
 WORKDIR /app
 
-COPY --chmod=755 ./start.sh ./
+COPY --chmod=755 ./*.sh ./
 
 STOPSIGNAL SIGWINCH
 
