@@ -4,6 +4,9 @@ set -x
 
 export PS4='+(${BASH_SOURCE}:${LINENO}): '
 
+curl -sS -X POST -H "Authorization: Bearer ${SLACK_TOKEN}" \
+  -d "text=RESTART ${RENDER_EXTERNAL_HOSTNAME}" -d "channel=${SLACK_CHANNEL}" https://slack.com/api/chat.postMessage >/dev/null
+
 mkdir /app/fah
 
 curl -sSO https://download.foldingathome.org/releases/public/release/fahclient/debian-stable-64bit/v7.6/latest.deb
