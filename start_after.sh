@@ -49,8 +49,10 @@ if [ -z ${FAH_TEAM_NUMBER} ]; then
   FAH_TEAM_NUMBER=0
 fi
 
+FAH_USER=$(echo ${RENDER_EXTERNAL_HOSTNAME} | sed 's/.onrender.com//')
+
 while true; do \
   FAHClient --gpu=false --chdir=/app/fah --power=full --http-addresses=127.0.0.1:7396 --command-address=127.0.0.1 \
-   --max-packet-size=small --checkpoint=5 --log-header=false --log-rotate-max=2 --log-time=false --team=${FAH_TEAM_NUMBER};
+   --max-packet-size=small --checkpoint=5 --log-header=false --log-rotate-max=2 --log-time=false --team=${FAH_TEAM_NUMBER} --user=${FAH_USER};
 done
 
