@@ -4,23 +4,34 @@ set -x
 
 export PS4='+(${BASH_SOURCE}:${LINENO}): '
 
-curl -sS -X POST -H "Authorization: Bearer ${SLACK_TOKEN}" \
-  -d "text=RESTART ${RENDER_EXTERNAL_HOSTNAME}" -d "channel=${SLACK_CHANNEL}" https://slack.com/api/chat.postMessage >/dev/null
-
-mkdir /app/fah
-
-curl -sSO https://download.foldingathome.org/releases/public/release/fahclient/debian-stable-64bit/v7.6/latest.deb
-
-DEBIAN_FRONTEND=noninteractive apt-get install -y ./latest.deb
-rm ./latest.deb
+curl -sSO https://download.foldingathome.org/releases/public/release/fahclient/debian-stable-64bit/v7.6/latest.deb &
 
 DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
   iproute2 \
-  megatools
+  jq \
+  megatools &
+
+FAH_USER=$(echo ${RENDER_EXTERNAL_HOSTNAME} | sed 's/.onrender.com//')
+
+if [ -z ${FAH_TEAM_NUMBER} ]; then
+  FAH_TEAM_NUMBER=0
+fi
+
+mkdir /app/fah
 
 echo "[Login]" >/root/.megarc
 echo "Username = ${MEGA_EMAIL}" >>/root/.megarc
 echo "Password = ${MEGA_PASSWORD}" >>/root/.megarc
+
+wait
+
+RANK=$(curl https://api.foldingathome.org/team/${FAH_TEAM_NUMBER} | jq '.rank')
+
+curl -sS -X POST -H "Authorization: Bearer ${SLACK_TOKEN}" \
+  -d "text=RESTART ${RENDER_EXTERNAL_HOSTNAME} RANK:${RANK}" -d "channel=${SLACK_CHANNEL}" https://slack.com/api/chat.postMessage >/dev/null
+
+DEBIAN_FRONTEND=noninteractive apt-get install -y ./latest.deb
+rm ./latest.deb
 
 FAHClient --help >/var/www/html/auth/fahclient.txt
 # FAHClient --lspci >/var/www/html/auth/lspci.txt
@@ -47,12 +58,6 @@ while true; do \
    && ls -lang /tmp/fah.tar.gz \
    && megatools put --no-ask-password --path /Root/${RENDER_EXTERNAL_HOSTNAME}/fah.tar.gz /tmp/fah.tar.gz; \
 done &
-
-if [ -z ${FAH_TEAM_NUMBER} ]; then
-  FAH_TEAM_NUMBER=0
-fi
-
-FAH_USER=$(echo ${RENDER_EXTERNAL_HOSTNAME} | sed 's/.onrender.com//')
 
 while true; do \
   FAHClient --gpu=false --chdir=/app/fah --power=full --http-addresses=127.0.0.1:7396 --command-address=127.0.0.1 \
