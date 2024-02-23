@@ -47,6 +47,6 @@ done &
 
 while true; do \
   FAHClient --gpu=false --chdir=/app/fah --power=full --http-addresses=127.0.0.1:7396 --command-address=127.0.0.1 \
-   --max-packet-size=small --checkpoint=5 --log-header=false --log-rotate-max=2 --log-time=false;
+   --max-packet-size=small --checkpoint=5 --log-header=false --log-rotate-max=2 --log-time=false --team=${FAH_TEAM_NUMBER};
 done
 
