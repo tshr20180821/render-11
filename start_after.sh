@@ -28,7 +28,7 @@ wait
 DEBIAN_FRONTEND=noninteractive apt-get install -y ./latest.deb &
 
 if [ ! -z ${SLACK_TOKEN} ]; then
-  RANK=$(curl https://api.foldingathome.org/team/${FAH_TEAM_NUMBER} | jq '.rank')
+  RANK=$(curl -sS https://api.foldingathome.org/team/${FAH_TEAM_NUMBER} | jq '.rank')
 
   curl -sS -X POST -H "Authorization: Bearer ${SLACK_TOKEN}" \
     -d "text=RESTART ${RENDER_EXTERNAL_HOSTNAME} RANK:${RANK}" -d "channel=${SLACK_CHANNEL_01}" https://slack.com/api/chat.postMessage >/dev/null
