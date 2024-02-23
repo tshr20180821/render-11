@@ -17,6 +17,7 @@ mkdir -p /var/www/html/auth
 chown www-data:www-data /var/www/html/auth -R
 
 echo '<HTML />' >/var/www/html/index.html
+echo '.' >/var/www/html/health_check.txt
 
 { \
   echo 'User-agent: *'; \
