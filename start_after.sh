@@ -25,12 +25,20 @@ echo "Password = ${MEGA_PASSWORD}" >>/root/.megarc
 
 wait
 
+DEBIAN_FRONTEND=noninteractive apt-get install -y ./latest.deb &
+
 RANK=$(curl https://api.foldingathome.org/team/${FAH_TEAM_NUMBER} | jq '.rank')
 
 curl -sS -X POST -H "Authorization: Bearer ${SLACK_TOKEN}" \
-  -d "text=RESTART ${RENDER_EXTERNAL_HOSTNAME} RANK:${RANK}" -d "channel=${SLACK_CHANNEL}" https://slack.com/api/chat.postMessage >/dev/null
+  -d "text=RESTART ${RENDER_EXTERNAL_HOSTNAME} RANK:${RANK}" -d "channel=${SLACK_CHANNEL_01}" https://slack.com/api/chat.postMessage >/dev/null
 
-DEBIAN_FRONTEND=noninteractive apt-get install -y ./latest.deb
+sleep 1s
+
+curl -sS -X POST -H "Authorization: Bearer ${SLACK_TOKEN}" \
+  -d "text=RESTART ${RENDER_EXTERNAL_HOSTNAME} RANK:${RANK}" -d "channel=${SLACK_CHANNEL_02}" https://slack.com/api/chat.postMessage >/dev/null
+
+wait
+
 rm ./latest.deb
 
 FAHClient --help >/var/www/html/auth/fahclient.txt
