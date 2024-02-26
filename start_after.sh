@@ -61,7 +61,8 @@ while true; do \
    && ss -anpt \
    && ps aux \
    && du -hd 1 /app/fah \
-   && ls -lang /app/fah/logs/ \
+   && ls -lang /app/fah/ \
+   && cp -f /app/fah/log.txt /var/www/html/auth/ \
    && rm -f /tmp/fah.tar.gz \
    && tar -zcf /tmp/fah.tar.gz ./fah \
    && megatools rm --no-ask-password /Root/${RENDER_EXTERNAL_HOSTNAME}/fah.tar.gz | true \
