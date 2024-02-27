@@ -80,7 +80,7 @@ FAHClient --help >/var/www/html/auth/fahclient.txt
 while true; do \
   for i in {1..30}; do \
     sleep 60s; \
-    curl -sSA "${i}" -u "${BASIC_USER}":"${BASIC_PASSWORD}" https://"${RENDER_EXTERNAL_HOSTNAME}"/ >/dev/null; \
+    time curl -sSw "%{time_total}\n" -A "${i}" -u "${BASIC_USER}":"${BASIC_PASSWORD}" -o /dev/null https://"${RENDER_EXTERNAL_HOSTNAME}"/; \
   done \
    && ss -anpt \
    && ps aux \
