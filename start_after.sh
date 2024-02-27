@@ -4,7 +4,17 @@ set -x
 
 export PS4='+(${BASH_SOURCE}:${LINENO}): '
 
-log_check() {
+subroutine01() {
+  ss -anpt
+  ps aux
+  du -hd 1 /app/fah
+  ls -lang /app/fah/
+  rm -f /tmp/fah.tar.xz
+  tar cfJ /tmp/fah.tar.xz ./fah
+  megatools rm --no-ask-password /Root/"${RENDER_EXTERNAL_HOSTNAME}"/fah.tar.gz
+  megatools rm --no-ask-password /Root/"${RENDER_EXTERNAL_HOSTNAME}"/fah.tar.xz
+  ls -lang /tmp/fah.tar.xz
+  megatools put --no-ask-password --path /Root/"${RENDER_EXTERNAL_HOSTNAME}"/fah.tar.xz /tmp/fah.tar.xz
   # grep steps /app/fah/log.txt | tail -n 1 >/tmp/logtail.txt
   cat /app/fah/log.txt | grep steps | tail -n 1 >/tmp/logtail.txt
   if [ -f /tmp/logtail.txt.old ]; then
@@ -85,17 +95,7 @@ while true; do \
     sleep 60s; \
     time curl -sSw "%{time_total}\n" -A "${i}" -u "${BASIC_USER}":"${BASIC_PASSWORD}" -o /dev/null https://"${RENDER_EXTERNAL_HOSTNAME}"/; \
   done \
-   && ss -anpt \
-   && ps aux \
-   && du -hd 1 /app/fah \
-   && ls -lang /app/fah/ \
-   && rm -f /tmp/fah.tar.xz \
-   && tar cfJ /tmp/fah.tar.xz ./fah \
-   && megatools rm --no-ask-password /Root/"${RENDER_EXTERNAL_HOSTNAME}"/fah.tar.gz | true \
-   && megatools rm --no-ask-password /Root/"${RENDER_EXTERNAL_HOSTNAME}"/fah.tar.xz | true \
-   && ls -lang /tmp/fah.tar.xz \
-   && megatools put --no-ask-password --path /Root/"${RENDER_EXTERNAL_HOSTNAME}"/fah.tar.xz /tmp/fah.tar.xz \
-   && log_check; \
+   && subroutine01 &; \
 done &
 
 while true; do \
