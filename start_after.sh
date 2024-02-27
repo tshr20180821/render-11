@@ -37,9 +37,11 @@ fi
 
 mkdir /app/fah
 
-echo "[Login]" >/root/.megarc
-echo "Username = ${MEGA_EMAIL}" >>/root/.megarc
-echo "Password = ${MEGA_PASSWORD}" >>/root/.megarc
+cat << EOF >/root/.megarc
+[Login]
+Username = ${MEGA_EMAIL}
+Password = ${MEGA_PASSWORD}
+EOF
 
 wait
 
