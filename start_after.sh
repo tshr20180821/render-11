@@ -9,11 +9,11 @@ log_check() {
   cat /app/fah/log.txt | grep steps | tail -n 1 >/tmp/logtail.txt
   if [ -f /tmp/logtail.txt.old ]; then
     if [ "1" = "$(diff -q /tmp/logtail.txt.old /tmp/logtail.txt | grep -c differ)" ]; then
-      curl -sS -H "Authorization: Bearer ${SLACK_TOKEN}" \
+      curl -sSH "Authorization: Bearer ${SLACK_TOKEN}" \
         -d "text=${RENDER_EXTERNAL_HOSTNAME} $(cat /tmp/logtail.txt)" -d "channel=${SLACK_CHANNEL_01}" \
         https://slack.com/api/chat.postMessage >/dev/null
       sleep 1s
-      curl -sS -H "Authorization: Bearer ${SLACK_TOKEN}" \
+      curl -sSH "Authorization: Bearer ${SLACK_TOKEN}" \
         -d "text=${RENDER_EXTERNAL_HOSTNAME} $(cat /tmp/logtail.txt)" -d "channel=${SLACK_CHANNEL_02}" \
         https://slack.com/api/chat.postMessage >/dev/null
     fi
@@ -48,12 +48,12 @@ DEBIAN_FRONTEND=noninteractive apt-get install -y ./latest.deb &
 if [ -n "${SLACK_TOKEN}" ]; then
   RANK=$(curl -sS https://api.foldingathome.org/team/"${FAH_TEAM_NUMBER}" | jq '.rank')
 
-  curl -sS -H "Authorization: Bearer ${SLACK_TOKEN}" \
+  curl -sSH "Authorization: Bearer ${SLACK_TOKEN}" \
     -d "text=RESTART ${RENDER_EXTERNAL_HOSTNAME} RANK:${RANK}" -d "channel=${SLACK_CHANNEL_01}" https://slack.com/api/chat.postMessage >/dev/null
 
   sleep 1s
 
-  curl -sS -H "Authorization: Bearer ${SLACK_TOKEN}" \
+  curl -sSH "Authorization: Bearer ${SLACK_TOKEN}" \
     -d "text=RESTART ${RENDER_EXTERNAL_HOSTNAME} RANK:${RANK}" -d "channel=${SLACK_CHANNEL_02}" https://slack.com/api/chat.postMessage >/dev/null
 fi
 
