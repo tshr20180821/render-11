@@ -27,7 +27,7 @@ DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
   iproute2 \
   jq \
   megatools \
-  xz &
+  xz-utils &
 
 FAH_USER="${RENDER_EXTERNAL_HOSTNAME//.onrender.com/}"
 
