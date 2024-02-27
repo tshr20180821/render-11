@@ -5,7 +5,8 @@ set -x
 export PS4='+(${BASH_SOURCE}:${LINENO}): '
 
 log_check() {
-  tail -n 1 /app/fah/log.txt >/tmp/logtail.txt
+  # grep steps /app/fah/log.txt | tail -n 1 >/tmp/logtail.txt
+  cat /app/fah/log.txt | grep steps | tail -n 1 >/tmp/logtail.txt
   if [ -f /tmp/logtail.txt.old ]; then
     if [ "1" = "$(diff -q /tmp/logtail.txt.old /tmp/logtail.txt | grep -c differ)" ]; then
       curl -sS -H "Authorization: Bearer ${SLACK_TOKEN}" \
@@ -84,6 +85,6 @@ while true; do \
 done &
 
 while true; do \
-  FAHClient --gpu=false --chdir=/app/fah --power=full --http-addresses=127.0.0.1:7396 --command-address=127.0.0.1 --cpu-usage=20 \
+  FAHClient --gpu=false --chdir=/app/fah --power=full --http-addresses=127.0.0.1:7396 --command-address=127.0.0.1 \
    --max-packet-size=small --checkpoint=5 --log-header=false --log-rotate-max=2 --team="${FAH_TEAM_NUMBER}" --user="${FAH_USER}";
 done
