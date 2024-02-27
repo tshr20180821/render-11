@@ -72,7 +72,7 @@ while true; do \
     sleep 60s; \
     time curl -sSw "%{time_total}\n" -A "${i}" -u "${BASIC_USER}":"${BASIC_PASSWORD}" -o /dev/null https://"${RENDER_EXTERNAL_HOSTNAME}"/; \
   done \
-   && ./subroutine01; \
+   && subroutine01; \
 done &
 
 while true; do \
