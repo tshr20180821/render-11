@@ -10,6 +10,10 @@ log_check() {
   if [ -f /tmp/logtail.txt.old ]; then
     if [ "1" = "$(diff -q /tmp/logtail.txt.old /tmp/logtail.txt | grep -c differ)" ]; then
       curl -sS -H "Authorization: Bearer ${SLACK_TOKEN}" \
+        -d "text=${RENDER_EXTERNAL_HOSTNAME} $(cat /tmp/logtail.txt)" -d "channel=${SLACK_CHANNEL_01}" \
+        https://slack.com/api/chat.postMessage >/dev/null
+      sleep 1s
+      curl -sS -H "Authorization: Bearer ${SLACK_TOKEN}" \
         -d "text=${RENDER_EXTERNAL_HOSTNAME} $(cat /tmp/logtail.txt)" -d "channel=${SLACK_CHANNEL_02}" \
         https://slack.com/api/chat.postMessage >/dev/null
     fi
