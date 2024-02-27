@@ -57,9 +57,15 @@ if [ -n "${SLACK_TOKEN}" ]; then
 fi
 
 megatools mkdir /Root/"${RENDER_EXTERNAL_HOSTNAME}"
-megatools get /Root/"${RENDER_EXTERNAL_HOSTNAME}"/fah.tar.gz
-tar xf ./fah.tar.gz
-rm -f ./fah.tar.gz
+megatools get /Root/"${RENDER_EXTERNAL_HOSTNAME}"/fah.tar.xz
+if [ -f ./fah.tar.xz ]; then
+  tar xf ./fah.tar.xz
+  rm -f ./fah.tar.xz
+else
+  megatools get /Root/"${RENDER_EXTERNAL_HOSTNAME}"/fah.tar.gz
+  tar xf ./fah.tar.gz
+  rm -f ./fah.tar.gz
+fi
 
 ls -lang /app/fah/
 touch /app/fah/log.txt
@@ -80,11 +86,12 @@ while true; do \
    && ps aux \
    && du -hd 1 /app/fah \
    && ls -lang /app/fah/ \
-   && rm -f /tmp/fah.tar.gz \
-   && tar -zcf /tmp/fah.tar.gz ./fah \
+   && rm -f /tmp/fah.tar.xz \
+   && tar cfJ /tmp/fah.tar.xz ./fah \
    && megatools rm --no-ask-password /Root/"${RENDER_EXTERNAL_HOSTNAME}"/fah.tar.gz | true \
-   && ls -lang /tmp/fah.tar.gz \
-   && megatools put --no-ask-password --path /Root/"${RENDER_EXTERNAL_HOSTNAME}"/fah.tar.gz /tmp/fah.tar.gz \
+   && megatools rm --no-ask-password /Root/"${RENDER_EXTERNAL_HOSTNAME}"/fah.tar.xz | true \
+   && ls -lang /tmp/fah.tar.xz \
+   && megatools put --no-ask-password --path /Root/"${RENDER_EXTERNAL_HOSTNAME}"/fah.tar.xz /tmp/fah.tar.xz \
    && log_check; \
 done &
 
