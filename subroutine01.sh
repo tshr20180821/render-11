@@ -16,6 +16,7 @@ ls -lang /tmp/fah.tar.xz
 megatools put --no-ask-password --path /Root/"${RENDER_EXTERNAL_HOSTNAME}"/fah.tar.xz /tmp/fah.tar.xz
 # grep steps /app/fah/log.txt | tail -n 1 >/tmp/logtail.txt
 cat /app/fah/log.txt | grep steps | tail -n 1 >/tmp/logtail.txt
+cat /tmp/logtail.txt
 if [ -f /tmp/logtail.txt.old ]; then
   if [ "1" = "$(diff -q /tmp/logtail.txt.old /tmp/logtail.txt | grep -c differ)" ]; then
     curl -sSH "Authorization: Bearer ${SLACK_TOKEN}" \
