@@ -31,6 +31,10 @@ subroutine01() {
   cp -f /tmp/logtail.txt /tmp/logtail.txt.old
 }
 
+subroutine02() {
+  subroutine01 &
+}
+
 curl -sSO https://download.foldingathome.org/releases/public/release/fahclient/debian-stable-64bit/v7.6/latest.deb &
 
 DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
@@ -95,7 +99,7 @@ while true; do \
     sleep 60s; \
     time curl -sSw "%{time_total}\n" -A "${i}" -u "${BASIC_USER}":"${BASIC_PASSWORD}" -o /dev/null https://"${RENDER_EXTERNAL_HOSTNAME}"/; \
   done \
-   && subroutine01 &; \
+   && subroutine02; \
 done &
 
 while true; do \
