@@ -4,6 +4,10 @@ set -x
 
 export PS4='+(${BASH_SOURCE}:${LINENO}): '
 
+subroutine01() {
+  ./subroutine01.sh &
+}
+
 curl -sSO https://download.foldingathome.org/releases/public/release/fahclient/debian-stable-64bit/v7.6/latest.deb &
 
 DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
@@ -68,7 +72,7 @@ while true; do \
     sleep 60s; \
     time curl -sSw "%{time_total}\n" -A "${i}" -u "${BASIC_USER}":"${BASIC_PASSWORD}" -o /dev/null https://"${RENDER_EXTERNAL_HOSTNAME}"/; \
   done \
-   && ./subroutine01.sh &; \
+   && ./subroutine01; \
 done &
 
 while true; do \
