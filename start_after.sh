@@ -26,7 +26,8 @@ curl -sSO https://download.foldingathome.org/releases/public/release/fahclient/d
 DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
   iproute2 \
   jq \
-  megatools &
+  megatools \
+  xz &
 
 FAH_USER="${RENDER_EXTERNAL_HOSTNAME//.onrender.com/}"
 
