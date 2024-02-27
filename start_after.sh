@@ -52,6 +52,8 @@ tar xf ./fah.tar.gz
 rm -f ./fah.tar.gz
 
 ls -lang /app/fah/
+touch /app/fah/log.txt
+ln -s /app/fah/log.txt /var/www/html/auth/log.txt
 
 while true; do \
   for i in {1..30}; do \
@@ -62,7 +64,6 @@ while true; do \
    && ps aux \
    && du -hd 1 /app/fah \
    && ls -lang /app/fah/ \
-   && cp -f /app/fah/log.txt /var/www/html/auth/ \
    && rm -f /tmp/fah.tar.gz \
    && tar -zcf /tmp/fah.tar.gz ./fah \
    && megatools rm --no-ask-password /Root/${RENDER_EXTERNAL_HOSTNAME}/fah.tar.gz | true \
@@ -74,4 +75,3 @@ while true; do \
   FAHClient --gpu=false --chdir=/app/fah --power=full --http-addresses=127.0.0.1:7396 --command-address=127.0.0.1 \
    --max-packet-size=small --checkpoint=5 --log-header=false --log-rotate-max=2 --team=${FAH_TEAM_NUMBER} --user=${FAH_USER};
 done
-
