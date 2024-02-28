@@ -70,7 +70,7 @@ FAHClient --help >/var/www/html/auth/fahclient.txt
 while true; do \
   for i in {1..30}; do \
     sleep 60s; \
-    time curl -sSw "%{time_total}\n" -A "${i}" -u "${BASIC_USER}":"${BASIC_PASSWORD}" -o /dev/null https://"${RENDER_EXTERNAL_HOSTNAME}"/; \
+    time curl -sSw "%{time_total}\n" -A "${i}" -u "${BASIC_USER}":"${BASIC_PASSWORD}" -o /dev/null https://"${RENDER_EXTERNAL_HOSTNAME}"/?dummy=$(date +%s%3N); \
   done \
    && subroutine01; \
 done &
